@@ -5,15 +5,12 @@ class EpisodiosProvider {
   final _url = 'https://rickandmortyapi.com/api/episode';
   final _http = Dio();
 
-  Future<List<EpisodiosModel>> obtenerepisodio(int pagina) async {
-    List<EpisodiosModel> _episodios = [];
-    final response = await _http.get(_url, queryParameters: {'offset': pagina});
-    List<dynamic> data = response.data['results'];
-    for (int i = 0; i < data.length; i++) {
-      final responseEpisodio = await _http.get(data[i]['url']);
-      _episodios.add(EpisodiosModel.fromJsonMap(responseEpisodio.data));
-    }
+  Future<List<EpisodiosModel>> obtenerEpisodios() async {
+    final response = await _http.get(_url);
+    List<dynamic> data = response.data;
 
-    return _episodios;
+    return data
+        .map((episodio) => EpisodiosModel.transformarInstancia(episodio))
+        .toList();
   }
 }

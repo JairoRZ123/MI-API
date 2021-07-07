@@ -1,27 +1,24 @@
 class EpisodiosModel {
-  int? id;
+  int id;
   String? name;
-  String? air_date;
+  String? airDate;
   String? episode;
-  String? url;
   String? created;
 
   EpisodiosModel({
-    this.id,
+    required this.id,
     this.name,
-    this.air_date,
+    this.airDate,
     this.episode,
-    this.url,
     this.created,
   });
 
-  factory EpisodiosModel.fromJsonMap(Map<String, dynamic> data) =>
+  factory EpisodiosModel.transformarInstancia(Map<String, dynamic> episodio) =>
       EpisodiosModel(
-        id: data['id'],
-        name: data['name'],
-        air_date: data['air_date'],
-        episode: data['episode'],
-        url: data['url'],
-        created: data['created'],
+        id: episodio['id'],
+        name: episodio['name'],
+        episode: episodio['episode'],
+        airDate: episodio['airDate'],
+        created: episodio['created'],
       );
 }
