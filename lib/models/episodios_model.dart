@@ -7,13 +7,13 @@ class EpisodiosModel {
 
   EpisodiosModel({
     required this.id,
-    this.name,
-    this.airDate,
-    this.episode,
-    this.created,
+    required this.name,
+    required this.airDate,
+    required this.episode,
+    required this.created,
   });
 
-  factory EpisodiosModel.transformarInstancia(Map<String, dynamic> episodio) =>
+  factory EpisodiosModel.fromJson(Map<String, dynamic> episodio) =>
       EpisodiosModel(
         id: episodio['id'],
         name: episodio['name'],

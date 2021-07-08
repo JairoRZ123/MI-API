@@ -1,16 +1,18 @@
-import 'package:dio/dio.dart';
 import 'package:prueba/models/episodios_model.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
 class EpisodiosProvider {
-  final _url = 'https://rickandmortyapi.com/api/episode';
-  final _http = Dio();
+  final String _url = 'https://rickandmortyapi.com/api/episode';
 
   Future<List<EpisodiosModel>> obtenerEpisodios() async {
-    final response = await _http.get(_url);
-    List<dynamic> data = response.data;
+    final url = Uri.https(_url, '/EpisodiosModel');
+    final resp = await http.get(url);
 
-    return data
-        .map((episodio) => EpisodiosModel.transformarInstancia(episodio))
+    final List<dynamic> decodeddata = convert.jsonDecode(resp.body);
+
+    return decodeddata
+        .map((episodio) => new EpisodiosModel.fromJson(episodio))
         .toList();
   }
 }
