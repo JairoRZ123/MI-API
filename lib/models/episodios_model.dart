@@ -1,24 +1,17 @@
-class EpisodiosModel {
-  int id;
+class Personajes {
+  int? id;
   String? name;
-  String? airDate;
-  String? episode;
-  String? created;
+  String? status;
+  String? species;
+  String? image;
 
-  EpisodiosModel({
-    required this.id,
-    required this.name,
-    required this.airDate,
-    required this.episode,
-    required this.created,
-  });
+  Personajes({this.id, this.name, this.status, this.species, this.image});
 
-  factory EpisodiosModel.fromJson(Map<String, dynamic> episodio) =>
-      EpisodiosModel(
-        id: episodio['id'],
-        name: episodio['name'],
-        episode: episodio['episode'],
-        airDate: episodio['airDate'],
-        created: episodio['created'],
+  factory Personajes.fromMapJson(Map<String, dynamic> data) => Personajes(
+        id: data['id'],
+        name: data['name'],
+        status: data['status'],
+        species: data['species'],
+        image: data['image'],
       );
 }

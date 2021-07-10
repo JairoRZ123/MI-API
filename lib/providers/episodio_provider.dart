@@ -1,18 +1,19 @@
+import 'package:dio/dio.dart';
 import 'package:prueba/models/episodios_model.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
 
-class EpisodiosProvider {
-  final String _url = 'https://rickandmortyapi.com/api/episode';
+class ProviderCha {
+  final _url = 'https://rickandmortyapi.com/api/character';
+  final _http = Dio();
 
-  Future<List<EpisodiosModel>> obtenerEpisodios() async {
-    final url = Uri.https(_url, '/EpisodiosModel');
-    final resp = await http.get(url);
+  Future<List<Personajes>> obtenerPersonaje() async {
+    final response = await _http.get(_url);
+    List<dynamic> data = response.data['results'];
+    final listaPersonajes =
+        data.map((results) => Personajes.fromMapJson(results)).toList();
 
-    final List<dynamic> decodeddata = convert.jsonDecode(resp.body);
-
-    return decodeddata
-        .map((episodio) => new EpisodiosModel.fromJson(episodio))
-        .toList();
+    //listaNoticias.map((dato) => print(dato.title));
+    //print(listaNoticias);
+    return listaPersonajes;
+    //data.map(())=> AmiiboModel.fromMapJson((amiibo)).toList();
   }
 }

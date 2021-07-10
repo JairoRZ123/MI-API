@@ -1,33 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:prueba/providers/episodio_state.dart';
+import 'package:prueba/models/episodios_model.dart';
+import 'package:prueba/providers/episodio_provider.dart';
 
 class HomePage extends StatelessWidget {
+  final _providerNew = ProviderCha();
   @override
   Widget build(BuildContext context) {
-    var controller = Get.put(EpisodioState());
-
     return Scaffold(
-      body: Obx(() => SafeArea(
-              child: GridView.count(
-            padding: EdgeInsets.all(5),
-            crossAxisCount: 2,
-            children: controller.episodios.map((episodios) {
-              return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                        child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              alignment: Alignment.center,
-                              color: Colors.teal.shade100,
-                              child: Text(episodios.name!),
-                            ))),
-                  ]);
-            }).toList(),
-          ))),
+      appBar: AppBar(title: Text('APP EXAMEN')),
+      body: FutureBuilder(
+        future: _providerNew.obtenerPersonaje(),
+        builder:
+            (BuildContext context, AsyncSnapshot<List<Personajes>> snapshot) {
+          final listpersonajes = snapshot.data;
+          if (snapshot.hasData) {
+            return ListView.builder(
+                itemCount: listpersonajes!.length,
+                itemBuilder: (BuildContext context, int i) {
+                  final result = listpersonajes[i];
+                  return _DisenosCha(result);
+                });
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
+    );
+  }
+}
+
+class _DisenosCha extends StatelessWidget {
+  final Personajes result;
+  _DisenosCha(this.result);
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: () => Navigator.pushNamed(context, '/detalles', arguments: result),
+      title: Text(result.name!),
+      subtitle: Text(result.status!),
+      leading: Text(result.species!),
+      trailing: Icon(Icons.person, color: Color.fromARGB(700, 800, 600, 500)),
     );
   }
 }
