@@ -7,9 +7,26 @@ class Detalles extends StatelessWidget {
     Personajes result =
         ModalRoute.of(context)!.settings.arguments as Personajes;
     return Scaffold(
-      body: Center(
-        child: Image.network(result.image!),
+      appBar: AppBar(
+        title: Text(result.name!),
       ),
+      backgroundColor: Colors.black,
+      body: new Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          new Image(
+              image: new AssetImage('assets/rick.jpg'),
+              fit: BoxFit.cover,
+              color: Colors.black45,
+              colorBlendMode: BlendMode.darken),
+          new Center(
+            child: Image.network(result.image!),
+          ),
+        ],
+      ),
+      //body: Center(
+      // child: Image.network(result.image!),
+      //),
     );
   }
 }

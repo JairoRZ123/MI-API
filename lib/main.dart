@@ -11,7 +11,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'App Personjes',
       initialRoute: '/home',
-      routes: {'/home': (_) => HomePage(), '/detalles': (_) => Detalles()},
+      routes: {
+        '/home': (_) => HomePage(),
+        '/detalles': (_) => Detalles(),
+      },
+      theme: ThemeData(
+        primarySwatch: Colors.lightGreen,
+      ),
     );
   }
 }

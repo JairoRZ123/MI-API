@@ -7,7 +7,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('APP EXAMEN')),
+      appBar: AppBar(
+        title: Text('TI5-1-RUELAS ZARZA JAIRO-APP EXAMEN'),
+      ),
       body: FutureBuilder(
         future: _providerNew.obtenerPersonaje(),
         builder:
@@ -41,7 +43,7 @@ class _DisenosCha extends StatelessWidget {
       title: Text(result.name!),
       subtitle: Text(result.status!),
       leading: Text(result.species!),
-      trailing: Icon(Icons.person, color: Color.fromARGB(700, 800, 600, 500)),
+      trailing: Image.network(result.image!),
     );
   }
 }
